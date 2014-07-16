@@ -3,7 +3,7 @@ PersonalPage
 
 Simple Flat UI personal page with centered, rounded image
 
-![Exapmple](https://github.com/sotsy/PersonalPage/example.png)
+![Exapmple](https://github.com/sotsy/PersonalPage/blob/master/example.png)
 
 You can see a demo in action at [http://about.sots.name](about.sots.name)
 
