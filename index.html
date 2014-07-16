@@ -1,0 +1,144 @@
+<html>
+<head>
+  <title>About Me</title>
+  <style type="text/css">
+    #centerblock {
+      position: relative;
+      top: 400px;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      margin:0px auto;
+      text-align: center;
+      width: 600px;
+      height: 600px;
+      color: #104E8B;
+    }
+
+    #text {
+      width: 600px;
+      margin:50px auto;
+      color: #B0E2FF;
+      text-align: justify;
+    }
+
+    .kreis_img {
+      font: 11px Georgia, "Times New Roman", Times, serif;
+      width:400px;
+      height:400px;
+      text-align:center;
+      border-radius:50%;
+      background:rgba(70,70,70,0.3);
+      border: 7px solid white;
+      box-shadow: 0px 1px 3px rgba(50,50,50,0.2) inset;
+      position: relative;
+      margin:0px auto
+    }
+
+    #background {
+        position: absolute;
+        padding: 0px;
+        margin: 0;
+        width: 100%;
+        height: 400px;
+        background-color: white;
+    }
+
+    .bildkreis  {
+      border-radius:50%;
+      width:100%;
+      height:100%;
+       text-align: left;
+    }
+
+    .socialicon {
+      width: 50px;
+      height: 50px;
+      position: absolute;
+      border-radius:50%;
+      border: 5px solid white;
+      box-shadow: 0px 1px 3px rgba(50,50,50,0.2) inset;}
+
+    body {
+      background-color: gray;
+      color: black;
+      font-family: sans-serif;
+      margin : 0px 0px 0px 0px;
+    }
+  </style>
+</head>
+<body>
+  <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript">
+
+    $( document ).ready(function() {
+      parseJSON();
+    });
+
+    function parseJSON() {
+      $.getJSON( "settings.json", function(json) {
+        var socials = {};
+        socials["placeholder"] = "placeholder";
+        $.each(json.social_profiles, function(key, value){
+          if (value != "")
+            socials[key] = value;
+        })
+      socialIcons(socials);
+      arrangeIcons();
+      });
+    }
+
+    function socialIcons(socials) {
+        $('.socialicon').remove();
+        var container = $('#centerblock');
+        $.each(socials, function(key, value){
+          $('<img/>', {
+            'class': 'socialicon',
+            'src' : './webicons/fc-webicon-' + key + '.svg'
+          }).appendTo($('<a/>', {
+            href: value
+            }).appendTo(container));
+      })
+    }
+
+    function arrangeIcons() {
+        var radius = 200;
+        var fields = $('.socialicon'), container = $('#centerblock'),
+            width = container.width(), height = container.height(),
+            angle = 0, step = (Math.PI) / fields.length;
+        fields.each(function() {
+            var x = Math.round(width/2 + radius * Math.cos(angle) -25 );
+            var y = Math.round(height/2 + radius * Math.sin(angle)  -50);
+            if (angle != 0) {
+              $(this).css({
+                left: x + 'px',
+                top: y + 'px'
+            });
+            } else {
+              $(this).css({
+                display: 'none'});
+            }
+            angle += step;
+        });
+    }
+  </script>
+
+  <div id="background"></div>
+  <div id="centerblock">
+    <h1 id="header">Max Mustermann</h1>
+    <div class="kreis_img" id="kreis_img">
+      <img src="http://placekitten.com/g/600/600" class="bildkreis">
+    </div>
+  </div>
+  <div id="text">
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+
+  </div>
+</body>
+</html>
